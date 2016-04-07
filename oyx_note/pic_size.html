@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片上传+图片预览+图片按比例显示</title>
+	<style type="text/css">
+		.pic_1{width: 100px;height: 30px;background: #f00;color: #fff;font: 14px/30px "microsoft yahei";position: relative;display: block;text-decoration: none;text-align: center;}
+		input[name="upload"]{position: absolute;top: 0;right: 0;opacity: 0;filter:alpha(opacity=0);}
+		.pic_2{width: 150px;height: 50px;border: 1px dotted #000;margin: 20px 0 0 0;font: 16px/50px "microsoft yahei";text-align: center;}
+	</style>
+</head>
+<body>
+	<!-- 选择上传 -->
+	<a href="javascript:;" class="pic_1">
+		选择文件
+		<input type="file" name="upload" multiple>
+	</a>
+	<!-- 拖拽上传 -->
+	<div class="pic_2" id="drag">
+		将文件拖至此处
+	</div>
+	<div id="list2">
+		
+	</div>
+	<script type="text/javascript">
+		//拖拽上传
+		var drag = document.getElementById('drag');
+		drag.addEventListener('drop', dropHandler, false);
+		drag.addEventListener('dragover', dragOverHandler, false);
+		function dropHandler(e) {
+		    e.stopPropagation();
+		    e.preventDefault();
+		    e.dataTransfer.files;
+		    /*var files = e.dataTransfer.files;
+		    for(var i = 0,html = [], len = files.length; i < len; i++) {
+		        var f = files[i];
+		        html.push(
+		            '<p>',
+		                f.name + '(' + (f.type || "n/a") + ')' + ' - ' + f.size + 'bytes',
+		            '</p>'
+		        );
+		    }
+		    document.getElementById('list2').innerHTML = html.join('');*/
+		}
+		function dragOverHandler(e) {
+		    e.stopPropagation();
+		    e.preventDefault();
+		    e.dataTransfer.dragEffect = 'copy';
+		}
+	</script>
+</body>
+</html>

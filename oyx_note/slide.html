@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>切换插件</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/slide.css">
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="slide" id="slide1">
+		<div class="slide_wrap" id="slide_wrap">
+			<div class="slide_item">
+				<img src="http://dummyimage.com/600x300/000/fff">
+			</div>
+			<div class="slide_item">
+				<img src="http://dummyimage.com/600x300/ccc/fff">
+			</div>
+			<div class="slide_item">
+				<img src="http://dummyimage.com/600x300/f00/fff">
+			</div>
+			
+
+		</div>
+		<div class="slide_ctrl" id="slide_ctrl">
+			<div class="ctrl_wrap clearfix" id="ctrl_wrap">
+				
+			</div>
+		</div>
+		<a href="javascript:;" class="prev" id="prev">
+			上一页
+		</a>
+		<a href="javascript:;" class="next" id="next">
+			下一页
+		</a>
+	</div>
+	
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/slide.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function (argument) {
+			var slide_1 = Slide.createNew();
+			slide_1.slide_wrap = $("#slide1 .slide_wrap");
+			slide_1.slide_item = $("#slide1 .slide_item");
+			slide_1.slide_ctrl = $("#slide1 .slide_ctrl");
+			slide_1.slide_ctrl_wrap = $("#slide1 .slide_ctrl .ctrl_wrap");
+			slide_1._prev = $("#slide1 .prev");
+			slide_1._next = $("#slide1 .next");
+			slide_1.init();
+			slide_1.addCtrlItem();
+			slide_1.ctrlItem();
+			slide_1.toPrev();
+			slide_1.toNext();
+		})
+	</script>
+</body>
+</html>

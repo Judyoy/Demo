@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>选择笔记</title>
+
+</head>
+
+<body >
+    <h4>1.&nbsp;&nbsp;单项选择</h4>
+    <ul>
+        <li class="liStyle">
+            <label class="fillTims" style="display: none" id="selectTips">请选择</label>
+            begin选项
+            <ul>
+                <li class="liStyle2">
+                    <span id="labOption">A</span>
+                    .阿萨德发
+                    <input type="hidden" value="1" id="hidID" name="repSingle$ctl00$repSingleChoices$ctl00$hidID">
+                    <input type="checkbox" name="repSingle$ctl00$repSingleChoices$ctl00$cheSingleChoice" id="cheSingleChoice"></li>
+
+                <li class="liStyle2">
+                    <span id="labOption">B</span>
+                    .阿萨德发
+                    <input type="hidden" value="2" id="hidID" name="repSingle$ctl00$repSingleChoices$ctl01$hidID">
+                    <input type="checkbox" name="repSingle$ctl00$repSingleChoices$ctl01$cheSingleChoice" id="cheSingleChoice"></li>
+
+                <li class="liStyle2">
+                    <span id="labOption">C</span>
+                    .阿斯顿
+                    <input type="hidden" value="3" id="hidID" name="repSingle$ctl00$repSingleChoices$ctl02$hidID">
+                    <input type="checkbox" name="repSingle$ctl00$repSingleChoices$ctl02$cheSingleChoice" id="cheSingleChoice"></li>
+            </ul>
+            <br></li>
+    </ul>
+    <h4>2.&nbsp;&nbsp;全选、全不选、反选</h4>
+    <div>
+        <input name="chkItem" type="checkbox" value="今日话题" />
+        今日话题
+        <input name="chkItem" type="checkbox" value="视觉焦点" />
+        视觉焦点
+        <input name="chkItem" type="checkbox" value="财经" />
+        财经
+        <input name="chkItem" type="checkbox" value="汽车" />
+        汽车
+        <input name="chkItem" type="checkbox" value="科技" />
+        科技
+        <input name="chkItem" type="checkbox" value="房产" />
+        房产
+        <input name="chkItem" type="checkbox" value="旅游" />
+        旅游
+    </div>
+    <br>
+    <div>
+        <input id="btnCheckAll" type="button" value="全选" />
+        <input id="btnCheckNone" type="button" value="全不选" />
+        <input id="btnCheckReverse" type="button" value="反选" />
+        <input id="btnSubmit" type="button" value="提交" />
+    </div>
+    <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" > 
+    mutipleCheckAction();
+    function mutipleCheckAction() {
+        $(".liStyle input:checkbox").click(function () {
+            $(this).attr("checked", true).parent("li").siblings().find("input:checkbox").attr("checked", false);
+        })
+    }
+    $(function () {
+        // 全选
+        $("#btnCheckAll").bind("click", function () {
+            $("input[name = chkItem]:checkbox").prop("checked", true);
+            return false;
+        });
+        // 全不选
+        $("#btnCheckNone").bind("click", function () {
+            $("input[name = chkItem]:checkbox").attr("checked",false);
+            return false;
+        });
+        // 反选
+        $("#btnCheckReverse").bind("click", function () {
+            $("input[name = chkItem]:checkbox").each(function () {
+                $(this).attr("checked", !$(this).attr("checked"));
+            });
+            return false;
+        });
+        // 全不选
+        $("#btnSubmit").bind("click", function () {
+            var result = new Array();
+            $("input[name = chkItem]:checkbox").each(function () {
+                if ($(this).is(":checked")) {
+                    result.push($(this).attr("value"));
+                }
+            });
+            alert(result.join(","));
+            return false;
+        });
+    });
+    $(document).ready(function (argument) {
+        alert(document.documentElement.clientWidth);
+        alert(document.documentElement.clientHeight);
+    })
+    
+</script>
+</body>
+</html>

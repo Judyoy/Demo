@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		.yaoyiyaoyes{font: 36px/36px "microsoft yahei";color: #000;}
+	</style>
+</head>
+<body>
+	<div class="yaoyiyaoyes">
+		<p>摇一摇</p>
+	</div>
+	<!-- script -->
+	<script src="../js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		alert(1);
+		$(document).ready(function(){
+			alert("1")
+			checkWxsq();
+			/*init();
+			setInterval(function (argument) {
+				shakeNum(count);
+				count = 0;
+			},1000/2);*/
+		});
+		function init(){
+		　　if (window.DeviceMotionEvent) {
+		　　　　// 移动浏览器支持运动传感事件
+		　　　　window.addEventListener('devicemotion', deviceMotionHandler, false);
+		　　}
+		}
+
+		var SHAKE_THRESHOLD = 1000;
+		var last_update = 0;
+		var x, y, z, last_x, last_y, last_z;
+		var count = 0;
+		var uid = "";
+
+		function deviceMotionHandler(eventData) {
+			var acceleration = eventData.accelerationIncludingGravity;
+			var curTime = new Date().getTime();
+			var diffTime = curTime - last_update;
+
+			if (diffTime > 100) {
+				last_update = curTime;
+				x = acceleration.x;
+				y = acceleration.y;
+				z = acceleration.z;
+
+				var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+
+				if (speed > SHAKE_THRESHOLD) {
+					count++;
+				}
+				last_x = x;
+				last_y = y;
+				last_z = z;
+			}
+		}
+		function shakeNum (num) {
+			$.ajax({
+				type: "POST",
+				url: "",
+				data: {
+
+				},
+				async: false,
+				success: function(data) {
+					if (data.status == true) {
+
+					}else{
+						
+					}
+				}
+			});
+		}
+		function checkWxsq () {
+			$.ajax({
+				type: "POST",
+				url: "../index.php?m=User&c=Info&a=check",
+				async: false,
+				success: function(data) {
+					if (data.status) {
+						uid = data.uid;
+						alert(uid);
+					}else{
+						alert("授权失败");
+						wxsq();
+					}
+				}
+			});
+		}
+		function wxsq () {
+			$.ajax({
+				type: "POST",
+				url: "../index.php?m=User&c=Info&a=index",
+				async: false
+			});
+		}
+	</script>
+</body>
+</html>

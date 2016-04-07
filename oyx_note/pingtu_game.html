@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimu-scale=1.0">
+	<title>拼图游戏</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<style type="text/css">
+		.loading{width: 100%;height: 100%;background: #fff;font-size: 26px;position: fixed;top: 0;left: 0;z-index: 999;}
+		.game_body{width: 2.88rem;height: 4.637rem;background: #ccc;margin: 0 auto;margin-top: 5%;position: relative;}
+		.item{width: 0.9216rem;height:1.5rem;background: #000;font-size: 56px;color: #fff;font-weight: bold;text-align: center;line-height: 1.55rem;position: absolute;top: 0;left: 0;}
+		.start{background: #f00;color: #fff;width: 200px;height: 50px;position: fixed;top: 50%;left: 50%;margin: -25px 0 0 -100px;font-size: 26px;display: block;line-height: 50px;text-align: center;font-weight: bold;z-index: 999;}
+		.reset{background: #fc9486;color: #fff;width: 200px;height: 50px;position: fixed;bottom: 0;left: 50%;margin: 0 0 10px -100px;font-size: 26px;display: block;line-height: 50px;text-align: center;font-weight: bold;}
+		.total_step{font-size: 26px;position: fixed;bottom: 0;left: 50%;margin: 0 0 60px -100px;}
+		.cover{width: 100%;height: 100%;position: fixed;top: 0;left: 0;z-index: 998;background: #fff;opacity: 0.6;}
+	</style>
+</head>
+<body>
+	<div class="game_body">
+		<div class="item" style="background:#faa7ed;" id="1">1</div>
+		<div class="item" style="background:#cc86fc;" id="2">2</div>
+		<div class="item" style="background:#fc86b0;" id="3">3</div>
+		<div class="item" style="background:#b386fc;" id="4">4</div>
+		<div class="item" style="background:#86d9fc;" id="5">5</div>
+		<div class="item" style="background:#86fcd1;" id="6">6</div>
+		<div class="item" style="background:#86fc8c;" id="7">7</div>
+		<div class="item" style="background:#fce786;" id="8">8</div>
+		<div class="item null" style="background:#fff;" id="9"></div>
+	</div>
+	<span class="start">开始游戏</span>
+	<span class="reset">重新开始</span>
+	<p class="total_step">总步数：<span class="step_num">0</span></p>
+	<div class="cover"></div>
+	<div class="loading">loading……</div>
+	<script src="js/jquery.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() { //页面DOM加载完成时执行
+			window.onload = function (argument) {
+				$(".loading").hide();
+				var $windowWidth = $(window).width();
+				var $designWidth = $("body").attr("data-design-width"); //获得写在body的设计宽度 如果设计稿是750px就在 body上添加属性 data-design-width＝"750" 
+				var $designdpr = $("body").attr("data-design-dpr"); //获得写在body的设计dpr
+				$("html").attr("data-dpr", window.devicePixelRatio); //获得设备dpr 写在 html 上
+				if (!$designWidth) {
+					$designWidth = 640; //没有获得 写在body的设计宽度 时，使用默认宽度 640px
+				}
+				if (!$designdpr) {
+					$designdpr = 2; //没有获得 写在body的设计dpr 时，使用默认dpr 2
+				}
+				console.log($windowWidth, $designWidth, $designdpr);
+
+				//下面都是换算 
+				setTimeout(function() {
+					$windowWidth = $(window).width();
+					if ($windowWidth > $designWidth) {
+						$windowWidth = $designWidth;
+					}
+					$("html").css("font-size", (100 / ($designWidth / $designdpr)) * $windowWidth + "px");
+				}, 100);
+
+
+				$(window).resize(function() {
+					$windowWidth = $(window).width();
+					if ($windowWidth > $designWidth) {
+						$windowWidth = $designWidth;
+					}
+					$("html").css("font-size", (100 / ($designWidth / $designdpr)) * $windowWidth + "px");
+				});
+			}
+			game();
+			readyPlay();
+			//开始游戏
+			start.click(function (argument) {
+				cover.hide();
+				$(this).hide();
+			})
+			//重新开始
+			reset.click(function (argument) {
+				game();
+				step = 0;
+				step_num.html(step);
+				readyPlay();
+			})
+		})
+		var start = $(".start");
+		var reset = $(".reset");
+		var cover = $(".cover");
+		var step_num = $(".step_num");
+		var step = 0;
+		var null_left = 0;
+		var null_top = 0;
+		var clickable;
+		var r=[];
+		//游戏初始化
+		var game = function (argument) {
+			var item = $(".item");
+			var _left = ["0","0.9216","1.8432"];
+			var _top = ["0","1.5","3"];
+			$(item).removeClass("active");
+			var index=0;
+			for (var i = 0; i < _left.length; i++) {
+				for (var j = 0; j < _top.length; j++) {
+					index++;
+					r.push({element:$('#'+index),index:index,top:_top[i],left:_left[j]});
+					var num = item.length;
+					var _item = Math.floor(Math.random()*(num));
+					$(item[_item]).addClass("active").css({"top":_top[i]+"rem","left":_left[j]+"rem"});
+					item.splice(_item,1);
+				};
+			};
+			console.log(r)
+		}
+		//游戏准备和更新
+		var readyPlay = function () {
+			var active = $(".active");
+			var _null = $(".null");
+			var _height = active.height();
+			var _width = active.width();
+			active.removeClass("clickable");
+			null_left = parseInt(_null.css("left"));
+			null_top = parseInt(_null.css("top"));
+			active.each(function (argument) {
+				var this_left =  parseInt($(this).css("left"));
+				var this_top =  parseInt($(this).css("top"));
+				if(!$(this).hasClass("null")) {
+					if((this_left === null_left && (this_top === null_top - _height || this_top === null_top + _height)) || (this_top === null_top && (this_left === null_left - _width || this_left === null_left + _width))) {
+						$(this).addClass("clickable");
+					}
+				}
+			})
+			clickable = $(".clickable");
+			clickable.click(function (argument) {
+				clickable.unbind();
+				var _this = $(this);
+				play(_this,readyPlay);
+			});
+		}
+		//玩游戏
+		var play = function (e,_fun) {
+			var _left =  parseInt(e.css("left"));
+			var _top =  parseInt(e.css("top"));
+			var _null = $(".null");
+			null_left = parseInt(_null.css("left"));
+			null_top = parseInt(_null.css("top"));
+			_null.css({"top":_top+"px","left":_left+"px"});
+			e.css({"top":null_top+"px","left":null_left+"px"});
+			step += 1;
+			step_num.html(step);
+			win();
+			_fun();
+		}
+		var num = 0;
+		//判断游戏输赢
+		var win = function (argument) {
+			console.log(r.length)
+			for (var i = 0; i < r.length; i++) {
+				var item=r[i];
+				if(parseInt(item.element.css("left"))==Math.floor(item.left*129.375)&&parseInt(item.element.css("top"))==Math.floor(item.top*129.375)){
+					console.log("位置对了"+item.index);
+				}else{
+					console.log("失败：继续");
+					return;	
+				}
+			};
+			alert("成功")
+		}
+	</script>
+</body>
+</html>

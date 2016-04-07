@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖放</title>
+	<style type="text/css">
+		.box{
+			width:200px;height: 200px;background: #f00;
+		}
+		.item{width: 100px;height: 100px;background: #00f;}
+	</style>
+	
+</head>
+<body>
+	<div class="box" ondrop="drop(event);" ondragover="allowDrop(event);">
+		
+	</div>
+	<div class="item" id="drag" draggable="true" ondragstart="drag(event);">
+	</div>
+	<!-- js -->
+	<script type="text/javascript">
+			//阻止默認事件
+			function allowDrop(ev){
+				ev.preventDefault();
+			}
+			//獲取拖拽內容
+			function drag(ev){
+				ev.dataTransfer.setData("Text",ev.target.id);
+			}
+			//清除默認不能拖放事件并將獲取到的數據放置設定的區域
+			function drop(ev){
+				ev.preventDefault();
+				var data=ev.dataTransfer.getData("Text");
+				ev.target.appendChild(document.getElementById(data));
+			}
+	</script>
+</body>
+</html>

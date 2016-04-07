@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<!-- doc -->
+	<article>
+		<h1>canvas绘制矩形、圆、多边形</h1>
+		<canvas id="draw_rect" width="200" height="100" style="border:1px solid #d3d3d3;">绘制矩形</canvas>
+		<canvas id="draw_circle" width="200" height="100" style="border:1px solid #d3d3d3;">绘制圆</canvas>
+		<canvas id="draw_line" width="200" height="100" style="border:1px solid #d3d3d3;">绘制线条</canvas>
+		<canvas id="draw_shape" width="200" height="100" style="border:1px solid #d3d3d3;">绘制多边形</canvas>
+		
+		<h1>canvas绘制渐变图像</h1>
+		<canvas id="draw_change" width="200" height="100" style="border:1px solid #d3d3d3;">绘制渐变图像</canvas>
+		
+		<h1>canvas填充图像、裁切图像</h1>
+		<canvas id="draw_pic" width="200" height="100" style="border:1px solid #d3d3d3;">使用图像填充画布</canvas>
+		<canvas id="draw_pic_repeat" width="200" height="100" style="border:1px solid #d3d3d3;">使用图像填充画布（按某方向重复或平铺）</canvas>
+		<img src="images/on.png" id="on" alt="" hidden>
+	</article>
+
+	<!-- javascript -->
+	<script>
+		//绘制矩形
+		var canvas_draw_rect = document.getElementById('draw_rect');
+		var draw_rect = canvas_draw_rect.getContext("2d");
+		draw_rect.rect(10,20,100,50);
+		draw_rect.strokeStyle="#f00";
+		draw_rect.stroke();
+		//绘制圆形
+		var canvas_draw_circle = document.getElementById("draw_circle");
+		var draw_circle = canvas_draw_circle.getContext("2d");
+		draw_circle.arc(100,50,40,0,Math.PI*2,true);
+		draw_circle.fillStyle = "#00f"
+		draw_circle.fill();
+		//绘制线条
+		var canvas_draw_line = document.getElementById("draw_line");
+		var draw_line = canvas_draw_line.getContext("2d");
+		draw_line.moveTo(10,10);
+		draw_line.lineTo(100,30);
+		draw_line.lineTo(10,60);
+		draw_line.lineTo(100,90);
+		draw_line.strokeStyle = "#f00";
+		draw_line.stroke();
+		//绘制多边形
+		var canvas_draw_shape = document.getElementById('draw_shape');
+		var draw_shape = canvas_draw_shape.getContext("2d");
+		draw_shape.beginPath();
+		draw_shape.moveTo(100,20);
+		draw_shape.lineTo(120,80);
+		draw_shape.lineTo(80,80);
+		draw_shape.closePath();
+		draw_shape.fill();
+		//绘制渐变图像
+		var canvas_draw_change = document.getElementById('draw_change');
+		var draw_change = canvas_draw_change.getContext("2d");
+		var change = draw_change.createLinearGradient(0,0,150,0);
+		change.addColorStop(0,"#000");
+		change.addColorStop(0.5,"#f00");
+		change.addColorStop(1,"#fff");
+		draw_change.fillStyle = change;
+		draw_change.fillRect(0,0,200,100);
+		//使用图像填充画布
+		var canvas_draw_pic = document.getElementById('draw_pic');
+		var draw_pic = canvas_draw_pic.getContext("2d");
+		var img=new Image();
+		img.src="images/share.jpg";
+		img.onload = function (argument) {
+			/*draw_pic.drawImage(img,0,0);//将图片原样放置在画布中，起点坐标为0,0
+			draw_pic.drawImage(img,0,0,100,100);//将图片大小设置为100x100并放置在画布中，起点坐标为0,0*/
+			draw_pic.drawImage(img,50,50,150,150,0,0,100,100);//裁切图片，裁切起点为在图片中坐标50，50，裁切大小为150x150，将裁切后的图片大小设置为100x100放置在画布中，起点坐标为0,0
+		}
+		//使用图像按方向填充画布
+		var canvas_draw_pic_repeat = document.getElementById('draw_pic_repeat');
+		var draw_pic_repeat = canvas_draw_pic_repeat.getContext("2d");
+		var img_on = document.getElementById('on');
+		img_on.onload = function (argument) {
+			var rep = draw_pic_repeat.createPattern(img_on,"repeat");//repeat=平铺，repeat-y=纵向重复，repeat-x，横向重复
+			draw_pic_repeat.rect(0,0,150,100);
+			draw_pic_repeat.fillStyle = rep;
+			draw_pic_repeat.fill();
+		}
+	</script>
+</body>
+</html>

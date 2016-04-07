@@ -1,0 +1,63 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>遍历笔记</title>
+</head>
+<body>
+	<button id="output">输出每个列表项的值</button>
+	<ul>
+		<li>Coffee</li>
+		<li>Milk</li>
+		<li>Soda</li>
+	</ul>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function (argument) {
+		/*//1、、、、数组遍历
+		 var arr = [ "one", "two", "three", "four"];     
+		 $.each(arr, function(){     
+		    alert(this);     
+		 });   
+		//上面这个each输出的结果分别为：one,two,three,four    
+		    
+		var arr1 = [[1, 4, 3], [4, 6, 6], [7, 20, 9]]     
+		$.each(arr1, function(i, item){     
+		   alert(item[0]);     
+		});     
+		//其实arr1为一个二维数组，item相当于取每一个一维数组，   
+		//item[0]相对于取每一个一维数组里的第一个值   
+		//所以上面这个each输出分别为：1   4   7     
+		  
+		  
+		var obj = { one:1, two:2, three:3, four:4};     
+		$.each(obj, function(i) {     
+		    alert(obj[i]);           
+		});   
+		//这个each就有更厉害了，能循环每一个属性     
+		//输出结果为：1   2  3  4 
+
+		//2、、、、dom tree遍历
+		// 监听事件的对象必须用原生方法获取
+		document.getElementById('output').addEventListener('click',function (argument) {
+			$("li").each(function (argument) {
+				alert($(this).html());
+			})
+		})*/
+		/*$("button").click(function (argument) {
+			$("li").each(function (argument) {
+				alert($(this).html());
+			})
+		})*/
+	$(function(){
+	    var arr = [];
+	    $(":checkbox").each(function(index){
+	        arr.push(this.id);
+	    });
+	    var str = arr.join(",");
+	    alert(str);
+	})
+
+	})
+</script>
+</body>
+</html>

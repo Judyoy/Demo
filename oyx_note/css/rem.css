@@ -1,0 +1,24 @@
+html,body{background: #fdf6e3;}
+.banner,.question_1,.message{width: 3.2rem;}
+.red{color: #f00;}
+h1{font: 0.1rem/0.13rem "microsoft yahei";color: #4f4f4f;width: 3.045rem;margin: 0 auto;margin-top: 0.15rem;margin-bottom: 0.12rem;}
+.red_circle{width: 0.105rem;height: 0.105rem;background: url(../images/red_circle.png) 0 0 no-repeat;display: inline-block;color: #fdf6e3;font: 0.08rem/0.105rem "microsoft yahei";text-align: center;margin-right: 0.03rem;vertical-align: top;margin-top: 0.02rem;-webkit-background-size:0.105rem 0.105rem;-moz-background-size:0.105rem 0.105rem;background-size:0.105rem 0.105rem;}
+table{width: 3.045rem;margin: 0 auto;background: #fefcf5;}
+tr{height: 0.225rem;width: 3.045rem;}
+td{width: 3.045rem;/* height: 45px; */border: 1px solid #c7c6c2;font: 0.1rem/0.225rem "microsoft yahei";color: #505050;padding-left: 0.06rem;}
+td .answer{width: 2.65rem;display: inline-block;vertical-align: top;}
+.radio input{opacity: 0;width: 0.14rem;height: 0.14rem;display: block;}
+.radio{width: 0.14rem;height: 0.14rem;margin-right: 0.1rem;background: url(../images/off.png) center center no-repeat;display: inline-block;vertical-align: middle;-webkit-background-size:0.14rem 0.14rem;-moz-background-size:0.14rem 0.14rem;background-size:0.14rem 0.14rem;}
+.message_pic,.question_2_pic{margin-bottom: 0.1rem;width: 3.2rem;}
+.message label{font: 0.1rem/0.13rem "microsoft yahei";color: #4f4f4f;width: 3.045rem;display: block;margin: 0 auto;margin-top: 0.1rem;margin-bottom: 0.075rem;}
+.message input,.message select{width: 3.045rem;height: 0.225rem;border: 1px solid #c7c6c2;display: block;margin: 0 auto;font: 0.1rem/0.13rem "microsoft yahei";color: #4f4f4f;}
+.message select{background: #fff;}
+.message input{padding-left: 0.3rem;box-sizing:border-box;}
+/*.um_code{background: #fefcf5 url(../images/um_code.png) 0.055rem center no-repeat;}*/
+.phone{background: #fefcf5 url(../images/phone.png) 0.055rem center no-repeat;-webkit-background-size: 0.175rem 0.215rem;-moz-background-size: 0.175rem 0.215rem;background-size: 0.175rem 0.215rem;}
+.submit_box{width: 3.045rem;border-top: 1px solid #b5b5b5;margin: 0 auto;padding-top: 0.125rem;margin-top: 0.235rem;margin-bottom: 0.26rem;}
+.sub_bt{width: 3.045rem;height: 0.185rem;font: 0.125rem/0.185rem "microsoft yahei";color: #fff;text-align: center;margin: 0 auto;background: #525252;border-radius: 0.025rem;}
+.yes,.no{display: none;width: 3.2rem;}
+.other{width: 2.09rem;height: 0.155rem;background: none;border: 1px solid #cdccc9;vertical-align: top;display: inline-block;margin-left: 0.05rem;font: 0.1rem/0.13rem "microsoft yahei";color: #4f4f4f;padding-left: 0.1rem;box-sizing:border-box;margin-top: 0.035rem;}
+.underline{text-decoration: underline;font-weight: bold;}
+.reset{display: none;}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微信摇一摇，响一响</title>
+	<style type="text/css">
+		.yaoyiyaoyes{font: 36px/36px "microsoft yahei";color: #000;}
+		.gif{width:300px;height:300px;display:block;position: fixed;top: 50%;left: 50%;margin-left: -150px;margin-top: -150px;}
+	</style>
+</head>
+<body>
+	<div class="yaoyiyaoyes">
+		<img src="Public/static/shark.gif" class="gif">
+		<span class="num">1</span>
+	</div>
+	<audio src="Public/static/5018.mp3" id="music" loop="loop" controls="controls" preload hidden="hidden"></audio>
+	<!-- script -->
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			/*//音乐自动播放(安卓生效)
+			_audio.play();
+			//监听事件触发苹果用户音乐播放
+			window.addEventListener("touchstart",function (argument) {
+				_audio.play();
+			})*/
+			//微信打开背景音乐自动播放
+			document.addEventListener("WeixinJSBridgeReady", function () {
+		        WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
+					_audio.load();
+			    });
+			});
+			init();
+		});
+
+		function init(){
+		　　if (window.DeviceMotionEvent) {
+		　　　　// 移动浏览器支持运动传感事件
+				window.addEventListener("devicemotion",deviceMotionHandler,false);
+		　　}
+		}
+		var SHAKE_THRESHOLD = 3000;
+		var last_update = 0;
+		var x, y, z, last_x, last_y, last_z;
+		var count = 0;
+		var num = 0;
+		var uid = "";
+		var times = 0;
+		var _audio = document.getElementById('music');
+
+		function deviceMotionHandler(eventData){
+			var acceleration = eventData.accelerationIncludingGravity;
+			var curTime = new Date().getTime();
+			var diffTime = curTime - last_update;
+			if (diffTime > 100) {
+				last_update = curTime;
+				x = acceleration.x;
+				y = acceleration.y;
+				z = acceleration.z;
+				var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+				if (speed > SHAKE_THRESHOLD){
+					count++;
+					$(".num").html(count);
+					_audio.play();
+					setTimeout(function (argument) {
+						_audio.pause();
+					},1300);
+				}
+				last_x = x;
+				last_y = y;
+				last_z = z;
+			}
+		}
+	</script>
+</body>
+</html>
